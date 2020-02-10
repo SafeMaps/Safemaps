@@ -6,22 +6,37 @@
  * @flow
  */
 
-import React from 'react';
-import {Image,StyleSheet,View,Text,StatusBar,Button} from 'react-native';
+ import React from 'react';
+ import {Image,StyleSheet,View,Text,StatusBar,Button} from 'react-native';
+ import {Header,Colors} from 'react-native/Libraries/NewAppScreen';
+ import { createStackNavigator } from 'react-navigation-stack';
+ import { createAppContainer } from 'react-navigation';
 
-import {Header,Colors} from 'react-native/Libraries/NewAppScreen';
-import Homepage from './src/Onboard/Homepage'
+ import Homepage from './src/Onboard/Homepage';
+ import Signup from './src/Onboard/Signup';
 
-const App: () => React$Node = () => {
-  return (
-    <>
-      <Homepage/>
-    </>
-  );
-};
+ const App: () => React$Node = () => {
+   return (
+     <>
+       <AppContainer/>
+     </>
+   );
+ };
+ const AppNavigator = createStackNavigator({
+   Home: {screen: Homepage,navigationOptions: {headerShown: false,}},
+   Signup: {screen: Signup},
+   initialRouteName: "Home",
+ });
 
-const styles = StyleSheet.create({
+ const AppContainer = createAppContainer(AppNavigator);
 
-});
+ const styles = StyleSheet.create({
+   container: {
+     flex: 1,
+     backgroundColor: '#fff',
+     alignItems: 'center',
+     justifyContent: 'center'}
 
-export default App;
+   });
+
+ export default App;

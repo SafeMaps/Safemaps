@@ -1,17 +1,19 @@
 import React, {Component } from 'react';
-import {Image,StyleSheet,View,Text,StatusBar,Button} from 'react-native';
+import {Image,StyleSheet,View,Text,StatusBar,Button, SafeAreaView} from 'react-native';
 import {Header,Colors} from 'react-native/Libraries/NewAppScreen';
 
 export default class Homepage extends Component{
   render(){
     return(
+  <SafeAreaView style= {styles.container}>
     <View style={styles.container}>
       <Image
         source={require('../assets/logo.png')}
         style = {{top:100,position:'absolute'}}
       />
       <View style= {styles.submitButton}>
-        <Button title= "Sign up" type = "outlined" color="white"/>
+        <Button title= "Sign up" type = "outlined" color="white"
+        onPress={() => this.props.navigation.navigate('Signup')}/>
       </View>
       <Text style={styles.accountText}>Alredy have an account? </Text>
       <View style={styles.signinButton}>
@@ -23,6 +25,7 @@ export default class Homepage extends Component{
         <Button title="Guess" color="#0EE8DE"/>
       </View>
     </View>
+  </SafeAreaView>
   );
  }
 }
