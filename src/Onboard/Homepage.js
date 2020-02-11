@@ -17,7 +17,7 @@ export default class Homepage extends Component{
       </View>
       <Text style={styles.accountText}>Alredy have an account? </Text>
       <View style={styles.signinButton}>
-        <Button title="Sign in" color="#0EE8DE"/>
+        <Button title="Sign in" color="#0EE8DE" onPress={()=> this.props.navigation.navigate('SignIn')}/>
       </View>
       <Text style={styles.guessText}> Continue as </Text>
 

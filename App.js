@@ -14,7 +14,8 @@
 
  import Homepage from './src/Onboard/Homepage';
  import Signup from './src/Onboard/Signup';
-
+ import SignIn from './src/Onboard/SignIn'
+;
  const App: () => React$Node = () => {
    return (
      <>
@@ -24,7 +25,8 @@
  };
  const AppNavigator = createStackNavigator({
    Home: {screen: Homepage,navigationOptions: {headerShown: false,}},
-   Signup: {screen: Signup},
+   Signup:{screen: Signup},
+   SignIn:{screen: SignIn},
    initialRouteName: "Home",
  });
 

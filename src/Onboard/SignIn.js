@@ -3,7 +3,7 @@ import {Image,StyleSheet,View,Text,StatusBar,Button, SafeAreaView, KeyboardAvoid
 TextInput, TouchableOpacity} from 'react-native';
 import {Header,Colors} from 'react-native/Libraries/NewAppScreen';
 
-export default class Signup extends Component{
+export default class SignIn extends Component{
   render(){
     return(
 
@@ -11,17 +11,14 @@ export default class Signup extends Component{
       <Image source={require('../assets/pin.png')} style={styles.pin} />
       <TextInput  placeholder="Email"style={styles.input}/>
       <TextInput placeholder="Password"  style={styles.input} />
-      <TextInput placeholder="Confirm Password" style={styles.input} />
-      <TouchableOpacity style= {styles.register}>
-        <Text style={{color:'white',fontSize: 15}}> Register </Text>
+      <TouchableOpacity style= {styles.signin}>
+        <Text style={{color:'white',fontSize: 15}}> Sign in </Text>
       </TouchableOpacity>
-
     </KeyboardAvoidingView>
 
   );
  }
 }
-  const window = Dimensions.get('window');
   const styles = StyleSheet.create({
   container: {
     flex:1,
@@ -49,7 +46,7 @@ export default class Signup extends Component{
     marginBottom: 100,
     padding:10,
   },
-  register:{
+  signin:{
   borderWidth:1,
   height: 42,
   width:"40%",
