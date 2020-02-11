@@ -1,6 +1,6 @@
 import React, {Component } from 'react';
 import {Image,StyleSheet,View,Text,StatusBar,Button, SafeAreaView, KeyboardAvoidingView, Dimensions,
-TextInput} from 'react-native';
+TextInput, TouchableOpacity} from 'react-native';
 import {Header,Colors} from 'react-native/Libraries/NewAppScreen';
 
 export default class Signup extends Component{
@@ -12,7 +12,12 @@ export default class Signup extends Component{
       <TextInput  placeholder="Email"style={styles.input}/>
       <TextInput placeholder="Password"  style={styles.input} />
       <TextInput placeholder="Confirm Password" style={styles.input} />
-      </KeyboardAvoidingView>
+      <TouchableOpacity style= {styles.register}>
+        <Text style={{color:'white',fontSize: 15}}> Register </Text>
+      </TouchableOpacity>
+
+    </KeyboardAvoidingView>
+
   );
  }
 }
@@ -29,28 +34,33 @@ export default class Signup extends Component{
     justifyContent: 'space-between',
   },
   input: {
-    height: 50,
+    height: 42,
+    width:"90%",
+    borderBottomWidth:1,
     backgroundColor: '#fff',
-    marginHorizontal: 10,
-    marginVertical: 5,
-   // paddingVertical: 5,
-    // paddingHorizontal: 15,
-    width: window.width - 30
+    //marginTop: "5%",
+    fontSize: 20,
+    borderRadius: 10,
+    marginBottom:"5%"
   },
   pin: {
-    height: 240,
-    width: 240,
+    height: 230,
+    width: 230,
     resizeMode: 'contain',
-    marginBottom: 20,
+    marginBottom: 100,
     padding:10,
-    marginTop:20
   },
   register:{
-    marginBottom:20,
-    width:window.width -100,
-    alignItems:'center',
-    justifyContent:'center',
-    height:50,
-    backgroundColor: '#ffae'
+  borderWidth:1,
+  height: 42,
+  width:"40%",
+  justifyContent:"center",
+  alignItems:"center",
+  borderRadius:40,
+  backgroundColor:"#384E79",
+  borderColor: '#0EE8DE',
+  alignSelf:'center',
+  textAlign: 'center',
+
   }
 });

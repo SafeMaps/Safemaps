@@ -11,7 +11,7 @@ export default class Homepage extends Component{
         source={require('../assets/logo.png')}
         style = {{top:100,position:'absolute'}}
       />
-      <View style= {styles.submitButton}>
+      <View style= {styles.signupButton}>
         <Button title= "Sign up" type = "outlined" color="white"
         onPress={() => this.props.navigation.navigate('Signup')}/>
       </View>
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     alignItems : 'center',
     justifyContent:'center'
   },
-  submitButton:{
+   signupButton:{
    marginTop:10,
    paddingTop:15,
    paddingBottom:15,
