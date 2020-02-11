@@ -10,7 +10,7 @@ export default class SignIn extends Component{
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Image source={require('../assets/pin.png')} style={styles.pin} />
       <TextInput  placeholder="Email"style={styles.input}/>
-      <TextInput placeholder="Password"  style={styles.input} />
+      <TextInput placeholder="Password"  style={styles.input} secureTextEntry={true} />
       <TouchableOpacity style= {styles.signin}>
         <Text style={{color:'white',fontSize: 15}}> Sign in </Text>
       </TouchableOpacity>

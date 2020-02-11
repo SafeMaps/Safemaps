@@ -10,8 +10,8 @@ export default class Signup extends Component{
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Image source={require('../assets/pin.png')} style={styles.pin} />
       <TextInput  placeholder="Email"style={styles.input}/>
-      <TextInput placeholder="Password"  style={styles.input} />
-      <TextInput placeholder="Confirm Password" style={styles.input} />
+      <TextInput placeholder="Password"  style={styles.input}  secureTextEntry={true} />
+      <TextInput placeholder="Confirm Password" style={styles.input} secureTextEntry={true} />
       <TouchableOpacity style= {styles.register}>
         <Text style={{color:'white',fontSize: 15}}> Register </Text>
       </TouchableOpacity>
@@ -40,7 +40,8 @@ export default class Signup extends Component{
     backgroundColor: '#fff',
     fontSize: 20,
     borderRadius: 10,
-    marginBottom:"5%"
+    marginBottom:"5%",
+
   },
   pin: {
     height: 230,
