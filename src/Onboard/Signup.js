@@ -1,18 +1,43 @@
 import React, {Component } from 'react';
-import {Image,StyleSheet,View,Text,StatusBar,Button, SafeAreaView, KeyboardAvoidingView, Dimensions,
-TextInput, TouchableOpacity} from 'react-native';
+import {Image,StyleSheet,View,Text,StatusBar,Button, SafeAreaView, KeyboardAvoidingView,
+TextInput, TouchableOpacity,Alert} from 'react-native';
 import {Header,Colors} from 'react-native/Libraries/NewAppScreen';
 
 export default class Signup extends Component{
+  constructor(props){
+    super(props)
+    this.state = {email :"", password:"",confirmpass:""}
+   }
+  validate_fields=()=>{
+     const {email, password, confirmpass} = this.state
+     if (email == "" || password =="" || confirmpass==""){
+       Alert.alert("Please fill out all fields")
+       return false
+     }
+     else if(password != confirmpass){
+       Alert.alert("Password don't match")
+       return false
+     }
+     return true
+   }
+    createAccount=()=>{
+      // this will make an api call to back server to create an account
+      if (this.validate_fields()){ // if validate_fields returns true then create acccount
+
+      }
+    }
+
+
   render(){
     return(
-
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Image source={require('../assets/pin.png')} style={styles.pin} />
-      <TextInput  placeholder="Email"style={styles.input}/>
-      <TextInput placeholder="Password"  style={styles.input}  secureTextEntry={true} />
-      <TextInput placeholder="Confirm Password" style={styles.input} secureTextEntry={true} />
-      <TouchableOpacity style= {styles.register}>
+      <TextInput  placeholder="Email"style={styles.input} onChangeText={(value)=> this.setState({email:value})}/>
+      <TextInput placeholder="Password"  style={styles.input}secureTextEntry={true}
+       onChangeText={(value)=> this.setState({password:value})} />
+      <TextInput placeholder="Confirm Password" style={styles.input} secureTextEntry={true}
+       onChangeText={(value)=> this.setState({confirmpass:value})} />
+      <TouchableOpacity style= {styles.register} onPress ={()=>this.createAccount()}>
         <Text style={{color:'white',fontSize: 15}}> Register </Text>
       </TouchableOpacity>
 
@@ -21,7 +46,7 @@ export default class Signup extends Component{
   );
  }
 }
-  const window = Dimensions.get('window');
+
   const styles = StyleSheet.create({
   container: {
     flex:1,
