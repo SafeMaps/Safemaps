@@ -27,8 +27,7 @@ render(){
 
   <KeyboardAvoidingView style={styles.container} behavior="padding">
     <Image source={require('../assets/pin.png')} style={styles.pin} />
-    <TextInput  placeholder="       Email"style={styles.input} onChangeText={(value)=> this.setState({email:value})} />
-    <Image source={require('../assets/grey.png')} style={styles.ImageStyle} />
+    <TextInput  placeholder="Email"style={styles.input} onChangeText={(value)=> this.setState({email:value})} />
     <TextInput placeholder="Password"  style={styles.input} secureTextEntry={true}
     onChangeText={(value)=> this.setState({password:value})} />
     <TouchableOpacity style= {styles.signin} onPress= {()=>this.make_Api_call()}>

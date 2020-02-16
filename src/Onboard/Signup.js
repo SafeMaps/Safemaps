@@ -10,6 +10,9 @@ export default class Signup extends Component{
    }
   validate_fields=()=>{
      const {email, password, confirmpass} = this.state
+     const temp = '/\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/'
+     var regx = new RegExp(/\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/)
+     var bool = regx.test(email);
      if (email == "" || password =="" || confirmpass==""){
        Alert.alert("Please fill out all fields")
        return false
@@ -17,6 +20,9 @@ export default class Signup extends Component{
      else if(password != confirmpass){
        Alert.alert("Password don't match")
        return false
+     }
+     else if(!bool){
+       Alert.alert("Invalid email format. Must be example@test.com")
      }
      return true
    }
@@ -26,13 +32,11 @@ export default class Signup extends Component{
 
       }
     }
-
-
   render(){
     return(
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Image source={require('../assets/pin.png')} style={styles.pin} />
-      <TextInput  placeholder="Email"style={styles.input} onChangeText={(value)=> this.setState({email:value})}/>
+      <TextInput  placeholder="Email" pattern={[]} style={styles.input} onChangeText={(value)=> this.setState({email:value})}/>
       <TextInput placeholder="Password"  style={styles.input}secureTextEntry={true}
        onChangeText={(value)=> this.setState({password:value})} />
       <TextInput placeholder="Confirm Password" style={styles.input} secureTextEntry={true}
@@ -40,7 +44,6 @@ export default class Signup extends Component{
       <TouchableOpacity style= {styles.register} onPress ={()=>this.createAccount()}>
         <Text style={{color:'white',fontSize: 15}}> Register </Text>
       </TouchableOpacity>
-
     </KeyboardAvoidingView>
 
   );
