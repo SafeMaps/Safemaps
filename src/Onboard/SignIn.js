@@ -10,9 +10,15 @@ constructor(props){
 
 check_fields = ()=>{
   const {email, password} = this.state
+  var regx = new RegExp(/\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/)
+  var bool = regx.test(email);
   if (email =="" || password ==""){
     Alert.alert("Please fill out all fields");
     return false;
+  }
+  else if(!bool){
+    Alert.alert("Invalid email format. Must be example@test.com")
+    return false
   }
   return true;
 }

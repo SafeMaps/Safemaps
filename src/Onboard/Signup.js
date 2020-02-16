@@ -10,7 +10,6 @@ export default class Signup extends Component{
    }
   validate_fields=()=>{
      const {email, password, confirmpass} = this.state
-     const temp = '/\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/'
      var regx = new RegExp(/\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/)
      var bool = regx.test(email);
      if (email == "" || password =="" || confirmpass==""){
@@ -23,6 +22,7 @@ export default class Signup extends Component{
      }
      else if(!bool){
        Alert.alert("Invalid email format. Must be example@test.com")
+       return false
      }
      return true
    }
