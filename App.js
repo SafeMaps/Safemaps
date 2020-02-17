@@ -14,9 +14,10 @@
 
  import Homepage from './src/Onboard/Homepage';
  import Signup from './src/Onboard/Signup';
- import SignIn from './src/Onboard/SignIn'
-;
- const App: () => React$Node = () => {
+ import SignIn from './src/Onboard/SignIn';
+ import Map from './src/Map/Map';
+
+ const App: () => React$Node=() => {
    return (
      <>
        <AppContainer/>
@@ -25,8 +26,9 @@
  };
  const AppNavigator = createStackNavigator({
    Home: {screen: Homepage,navigationOptions: {headerShown: false,}},
-   Signup:{screen: Signup},
-   SignIn:{screen: SignIn},
+   Signup:{screen: Signup ,navigationOptions:{headerShown:false}},
+   SignIn:{screen: SignIn, navigationOptions:{headerShown:false}},
+   Map:{screen:Map, navigationOptions:{headerShown:false}}, 
    initialRouteName: "Home",
  });
 

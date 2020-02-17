@@ -22,7 +22,7 @@ export default class Homepage extends Component{
       <Text style={styles.guessText}> Continue as </Text>
 
       <View style={styles.guessButton}>
-        <Button title="Guess" color="#0EE8DE"/>
+        <Button title="Guess" color="#0EE8DE" onPress ={()=>this.props.navigation.navigate('Map')}/>
       </View>
     </View>
   </SafeAreaView>

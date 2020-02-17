@@ -33,8 +33,8 @@ render(){
 
   <KeyboardAvoidingView style={styles.container} behavior="padding">
     <Image source={require('../assets/pin.png')} style={styles.pin} />
-    <TextInput  placeholder="Email"style={styles.input} onChangeText={(value)=> this.setState({email:value})} />
-    <TextInput placeholder="Password"  style={styles.input} secureTextEntry={true}
+    <TextInput  placeholder="Email" placeholderTextColor="grey"style={styles.input} onChangeText={(value)=> this.setState({email:value})} />
+    <TextInput placeholder="Password" placeholderTextColor="grey" style={styles.input} secureTextEntry={true}
     onChangeText={(value)=> this.setState({password:value})} />
     <TouchableOpacity style= {styles.signin} onPress= {()=>this.make_Api_call()}>
       <Text style={{color:'white',fontSize: 15}}> Sign in </Text>
@@ -59,7 +59,8 @@ input: {
   backgroundColor: '#fff',
   fontSize: 20,
   borderRadius: 10,
-  marginBottom:"5%"
+  marginBottom:"5%",
+  color:'grey',
 },
 pin: {
   height: 230,

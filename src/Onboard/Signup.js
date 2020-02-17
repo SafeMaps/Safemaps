@@ -36,10 +36,10 @@ export default class Signup extends Component{
     return(
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Image source={require('../assets/pin.png')} style={styles.pin} />
-      <TextInput  placeholder="Email" pattern={[]} style={styles.input} onChangeText={(value)=> this.setState({email:value})}/>
-      <TextInput placeholder="Password"  style={styles.input}secureTextEntry={true}
+      <TextInput  placeholder="Email" placeholderTextColor="grey" pattern={[]} style={styles.input} onChangeText={(value)=> this.setState({email:value})}/>
+      <TextInput placeholder="Password" placeholderTextColor="grey" style={styles.input}secureTextEntry={true}
        onChangeText={(value)=> this.setState({password:value})} />
-      <TextInput placeholder="Confirm Password" style={styles.input} secureTextEntry={true}
+      <TextInput placeholder="Confirm Password"placeholderTextColor="grey" style={styles.input} secureTextEntry={true}
        onChangeText={(value)=> this.setState({confirmpass:value})} />
       <TouchableOpacity style= {styles.register} onPress ={()=>this.createAccount()}>
         <Text style={{color:'white',fontSize: 15}}> Register </Text>
@@ -69,7 +69,7 @@ export default class Signup extends Component{
     fontSize: 20,
     borderRadius: 10,
     marginBottom:"5%",
-
+    color:'grey',
   },
   pin: {
     height: 230,
