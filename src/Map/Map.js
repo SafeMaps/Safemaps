@@ -5,6 +5,7 @@ import {Header,Colors} from 'react-native/Libraries/NewAppScreen';
 import MapView from 'react-native-maps';
 import Search from './Search';
 
+
 export default class Map extends Component{
   render(){
     return(
@@ -14,8 +15,7 @@ export default class Map extends Component{
          loadingEnabled={true} />
 
          <Search>  </Search>
-    </View> 
-       
+    </View>    
   
   );
  }

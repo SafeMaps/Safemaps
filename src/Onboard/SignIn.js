@@ -1,7 +1,7 @@
 import React, {Component } from 'react';
 import {Image,StyleSheet,View,Text,StatusBar,Button, SafeAreaView, KeyboardAvoidingView, Dimensions,
 TextInput, TouchableOpacity,Alert} from 'react-native';
-import {Header,Colors} from 'react-native/Libraries/NewAppScreen';
+
 
 export default class SignIn extends Component{
 constructor(props){
