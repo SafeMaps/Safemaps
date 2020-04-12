@@ -7,23 +7,27 @@
  */
 
  import React from 'react';
- import {Image,StyleSheet,View,Text,ScrollView, Dimensions, ImageBackground} from 'react-native';
- import {Header,Colors} from 'react-native/Libraries/NewAppScreen';
- import { createStackNavigator } from 'react-navigation-stack';
+ import {StyleSheet,View,Text,ScrollView, ImageBackground} from 'react-native';
+
+import {createStackNavigator} from 'react-navigation-stack';
  import { createAppContainer} from 'react-navigation';
- import {createDrawerNavigator, DrawerItems} from 'react-navigation-drawer';
+import {createDrawerNavigator, DrawerItems} from 'react-navigation-drawer';
 
  import Homepage from './src/Onboard/Homepage';
  import Signup from './src/Onboard/Signup';
- import SignIn from './src/Onboard/SignIn';
+import SignIn from './src/Onboard/SignIn';
  import Map from './src/Map/Map';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import PrivacyPolicy from './src/PrivacyPolicy/PrivacyPolicy';
+ import ShareApp from './src/ShareApp/ShareApp';
+
+ import { SafeAreaView } from 'react-native-safe-area-context';
 
 
  const App: () => React$Node=() => {
    return (
-     <>
-       <AppContainer/>
+    <>
+      <AppContainer />
+       
      </>
    );
  };
@@ -37,12 +41,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
      <ScrollView>
        <DrawerItems {...props}/>
      </ScrollView>
-
    </SafeAreaView>
 
  )
  
- const DrawerMenu = createDrawerNavigator({Map : {screen : Map}},
+ const DrawerMenu = createDrawerNavigator({Map : {screen : Map},'Privacy Policy' :{screen: PrivacyPolicy},'Share App':{screen: ShareApp} },
   {contentComponent: CustomDrawerComponent});
 
 const SideNavigator = createAppContainer(DrawerMenu);
@@ -51,7 +54,7 @@ const SideNavigator = createAppContainer(DrawerMenu);
    Home: {screen: Homepage,navigationOptions: {headerShown: false,}},
    Signup:{screen: Signup ,navigationOptions:{headerShown:false}},
    SignIn:{screen: SignIn, navigationOptions:{headerShown:false}},
-   SideMenu:{screen: SideNavigator, navigationOptions:{headerShown:false, gestureEnabled: false,}}, 
+   SideMenu_guess:{screen: SideNavigator, navigationOptions:{headerShown:false, gestureEnabled: false,}}, 
    initialRouteName: "Home",
  });
 

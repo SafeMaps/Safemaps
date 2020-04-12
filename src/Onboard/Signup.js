@@ -1,94 +1,146 @@
-import React, {Component } from 'react';
-import {Image,StyleSheet,View,Text,StatusBar,Button, SafeAreaView, KeyboardAvoidingView,
-TextInput, TouchableOpacity,Alert} from 'react-native';
-import {Header,Colors} from 'react-native/Libraries/NewAppScreen';
+import React, {Component} from 'react';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  KeyboardAvoidingView,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+  AsyncStorage,
+} from 'react-native';
+import {createUser} from '../AccountService';
 
-export default class Signup extends Component{
-  constructor(props){
-    super(props)
-    this.state = {email :"", password:"",confirmpass:""}
-   }
-  validate_fields=()=>{
-     const {email, password, confirmpass} = this.state
-     var regx = new RegExp(/\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/)
-     var bool = regx.test(email);
-     if (email == "" || password =="" || confirmpass==""){
-       Alert.alert("Please fill out all fields")
-       return false
-     }
-     else if(password != confirmpass){
-       Alert.alert("Password don't match")
-       return false
-     }
-     else if(!bool){
-       Alert.alert("Invalid email format. Must be example@test.com")
-       return false
-     }
-     return true
-   }
-    createAccount=()=>{
-      // this will make an api call to back server to create an account
-      if (this.validate_fields()){ // if validate_fields returns true then create acccount
-
-      }
+export default class Signup extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {email: '', password: '', confirm_pass: ''};
+  }
+  validate_fields = () => {
+    const {email, password, confirm_pass} = this.state;
+    var regx: *;
+    regx = new RegExp(/\b[\w.-]+@[\w.-]+\.\w{2,4}\b/);
+    var bool = regx.test(email);
+    if (email === '' || password === '' || confirm_pass === '') {
+      Alert.alert('Please fill out all fields');
+      return false;
+    } else if (password !== confirm_pass) {
+      Alert.alert("Password don't match");
+      return false;
+    } else if (!bool) {
+      Alert.alert('Invalid email format. Must be example@test.com');
+      return false;
     }
-  render(){
-    return(
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
-      <Image source={require('../assets/pin.png')} style={styles.pin} />
-      <TextInput  placeholder="Email" placeholderTextColor="grey" pattern={[]} style={styles.input} onChangeText={(value)=> this.setState({email:value})}/>
-      <TextInput placeholder="Password" placeholderTextColor="grey" style={styles.input}secureTextEntry={true}
-       onChangeText={(value)=> this.setState({password:value})} />
-      <TextInput placeholder="Confirm Password"placeholderTextColor="grey" style={styles.input} secureTextEntry={true}
-       onChangeText={(value)=> this.setState({confirmpass:value})} />
-      <TouchableOpacity style= {styles.register} onPress ={()=>this.createAccount()}>
-        <Text style={{color:'white',fontSize: 15}}> Register </Text>
-      </TouchableOpacity>
-    </KeyboardAvoidingView>
+    return true;
+  };
+  createAccount = () => {
+    // this will make an api call to back server to create an account
+    if (this.validate_fields()) {
+      const {email, password} = this.state;
+      const credential = {email: email, password: password};
+      createUser(credential).then(token => {
+        if (token === false) {
+          console.log('User already exist');
+        } else {
+          this.saveKey(token);
 
-  );
- }
+        }
+      });
+    }
+  };
+  saveKey = async token => {
+    try {
+      await AsyncStorage.setItem('token', token);
+      console.log('Key saved');
+    } catch (error) {
+      console.log('Error saving token ${error}');
+    }
+  };
+  getKey = async () => {
+    try {
+      const value = await AsyncStorage.getItem('token');
+      if (value !== null) {
+        console.log('Returning saved value' + value);
+        return value;
+      }
+    } catch (error) {
+      console.log('There was an error getting they stored key ${error}');
+    }
+  };
+
+  render() {
+    return (
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
+        <Image source={require('../assets/pin.png')} style={styles.pin} />
+        <TextInput
+          placeholder="Email"
+          placeholderTextColor="grey"
+          pattern={[]}
+          style={styles.input}
+          onChangeText={value => this.setState({email: value})}
+        />
+        <TextInput
+          placeholder="Password"
+          placeholderTextColor="grey"
+          style={styles.input}
+          secureTextEntry={true}
+          onChangeText={value => this.setState({password: value})}
+        />
+        <TextInput
+          placeholder="Confirm Password"
+          placeholderTextColor="grey"
+          style={styles.input}
+          secureTextEntry={true}
+          onChangeText={value => this.setState({confirm_pass: value})}
+        />
+        <TouchableOpacity
+          style={styles.register}
+          onPress={() => this.createAccount()}>
+          <Text style={{color: 'white', fontSize: 15}}> Register </Text>
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
+    );
+  }
 }
 
-  const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
-    flex:1,
-    backgroundColor:'#384E79',
-    alignItems : 'center',
-    justifyContent:'center',
-    },
+    flex: 1,
+    backgroundColor: '#384E79',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   form: {
     flex: 1,
     justifyContent: 'space-between',
   },
   input: {
     height: 42,
-    width:"90%",
-    borderBottomWidth:1,
+    width: '90%',
+    borderBottomWidth: 1,
     backgroundColor: '#fff',
     fontSize: 20,
     borderRadius: 10,
-    marginBottom:"5%",
-    color:'grey',
+    marginBottom: '5%',
+    color: 'grey',
   },
   pin: {
     height: 230,
     width: 230,
     resizeMode: 'contain',
     marginBottom: 100,
-    padding:10,
+    padding: 10,
   },
-  register:{
-  borderWidth:1,
-  height: 42,
-  width:"40%",
-  justifyContent:"center",
-  alignItems:"center",
-  borderRadius:40,
-  backgroundColor:"#384E79",
-  borderColor: '#0EE8DE',
-  alignSelf:'center',
-  textAlign: 'center',
-
-  }
+  register: {
+    borderWidth: 1,
+    height: 42,
+    width: '40%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 40,
+    backgroundColor: '#384E79',
+    borderColor: '#0EE8DE',
+    alignSelf: 'center',
+    textAlign: 'center',
+  },
 });
