@@ -7,14 +7,14 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
-  AsyncStorage,
+  ActivityIndicator,
 } from 'react-native';
-import {createUser} from '../AccountService';
+import {createUser, saveKey} from '../AccountService';
 
 export default class Signup extends Component {
   constructor(props) {
     super(props);
-    this.state = {email: '', password: '', confirm_pass: ''};
+    this.state = {email: '', password: '', confirm_pass: '', busy: false};
   }
   validate_fields = () => {
     const {email, password, confirm_pass} = this.state;
@@ -42,36 +42,26 @@ export default class Signup extends Component {
         if (token === false) {
           console.log('User already exist');
         } else {
-          this.saveKey(token);
-
+          saveKey(token);
+          this.setState({busy: true});
+          this.props.navigation.navigate('SideMenu_guess');
         }
       });
     }
   };
-  saveKey = async token => {
-    try {
-      await AsyncStorage.setItem('token', token);
-      console.log('Key saved');
-    } catch (error) {
-      console.log('Error saving token ${error}');
-    }
-  };
-  getKey = async () => {
-    try {
-      const value = await AsyncStorage.getItem('token');
-      if (value !== null) {
-        console.log('Returning saved value' + value);
-        return value;
-      }
-    } catch (error) {
-      console.log('There was an error getting they stored key ${error}');
-    }
+  get_indicator_status = () => {
+    const {busy} = this.state;
+    return busy;
   };
 
   render() {
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         <Image source={require('../assets/pin.png')} style={styles.pin} />
+        <ActivityIndicator
+          rowSpan="4"
+          animating={this.get_indicator_status()}
+        />
         <TextInput
           placeholder="Email"
           placeholderTextColor="grey"
@@ -142,5 +132,14 @@ const styles = StyleSheet.create({
     borderColor: '#0EE8DE',
     alignSelf: 'center',
     textAlign: 'center',
+  },
+  activity: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
   },
 });
