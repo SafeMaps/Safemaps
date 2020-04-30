@@ -10,11 +10,13 @@ export default class Search extends Component {
     this.state = {key: cred.getKey()};
   }
   render() {
+      const{onLocationSelected} = this.props;
     return (
-      <GooglePlacesAutocomplete placeholder="Where to ?" onPress={(data, details) => {console.log(data, details);}}
+      <GooglePlacesAutocomplete placeholder="Where to ?" onPress={onLocationSelected}
         placeholderTextColor="#333"
         query={{key: this.state.key, language: 'en'}} //cred.key}}
         textInputProps={{autoCapitalize: 'none', autoCorrect: false}}
+        fetchDetails
         enablePoweredByContainer={false} // dont want the powered by google
         styles={{container:styles.container,
           textInputContainer:styles.textInputContainer ,
@@ -43,6 +45,7 @@ const styles = StyleSheet.create({
             paddingRight: 20,
             shadowColor: '#000',
             fontSize: 18,
+            color: '#000'
           },
     listView: {
             borderWidth: 1,
