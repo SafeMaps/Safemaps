@@ -7,15 +7,20 @@ export default class Search extends Component {
   constructor(props) {
     super(props);
     const cred = new Cred; // wil be in git ignore to make sure key is not public
-    this.state = {key: cred.getKey()};
+    this.state = {key: cred.getKey(), searchedFocused: false};
   }
   render() {
+      const {searchedFocused} = this.state;
       const{onLocationSelected} = this.props;
     return (
       <GooglePlacesAutocomplete placeholder="Where to ?" onPress={onLocationSelected}
         placeholderTextColor="#333"
         query={{key: this.state.key, language: 'en'}} //cred.key}}
-        textInputProps={{autoCapitalize: 'none', autoCorrect: false}}
+        textInputProps={{
+            onFocus:()=>{this.setState({searchedFocus:true})}, // to make the list dissapear once user selects
+            onBlurt:()=>{this.setState({searchedFocus:false})},
+            autoCapitalize: 'none', autoCorrect: false }}
+        listViewDisplayed={searchedFocused}
         fetchDetails
         enablePoweredByContainer={false} // dont want the powered by google
         styles={{container:styles.container,

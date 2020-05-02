@@ -9,6 +9,7 @@ import MapMarker from "react-native-maps/lib/components/MapMarker";
 export default class Map extends Component {
    constructor(props) {
         super(props);
+        this.mapRef = null;
         this.state = {region:null, destination : null, directions: []};
     }
     componentDidMount() {
@@ -26,13 +27,18 @@ export default class Map extends Component {
         const {location: {lat: latitude, lng: longitude}} = geometry;
         this.setState({destination: {latitude, longitude, text: data.structured_formatting.main_text}});
         const {region, destination} = this.state;
-        this.getCoordinates(region, destination).then(routeCoordinates => this.setState({directions:routeCoordinates }) )
+        this.getCoordinates(region, destination).then(
+            routeCoordinates => this.setState({directions:routeCoordinates})).then(this.fitMap)
     };
 
 
    getCoordinates = async (origin, destination) => {
        return await getRoute(origin, destination);
 
+   };
+   fitMap =()=>{
+       const {directions} = this.state;
+       this.mapRef.fitToCoordinates(directions, { edgePadding: { top: 10, right: 10, bottom: 10, left: 10 }, animated: false })
    };
     render() {
        const {region, destination, directions} = this.state;
@@ -44,6 +50,7 @@ export default class Map extends Component {
           showsUserLocation={true}
           region={region}
           loadingEnabled={true}
+          ref={(ref) => { this.mapRef = ref }}
        >
             {destination && directions &&
            <Polyline
