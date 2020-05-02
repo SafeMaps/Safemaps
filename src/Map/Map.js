@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
 import {View} from 'react-native';
-import MapView, {Marker} from 'react-native-maps';
+import MapView, {Polyline} from 'react-native-maps';
 import Search from './Search'
 import Geolocation from '@react-native-community/geolocation';
+import {getRoute} from "../AccountService";
+import MapMarker from "react-native-maps/lib/components/MapMarker";
 
 export default class Map extends Component {
    constructor(props) {
         super(props);
-        this.state = {region:null, destination : null};
+        this.state = {region:null, destination : null, directions: []};
     }
     componentDidMount() {
 
@@ -21,13 +23,19 @@ export default class Map extends Component {
             {enableHighAccuracy:true, maximumAge:1000, timeout:200})
     }
     handleLocationSelected = (data, {geometry}) => {
-       const {location: {lat: latitude, lng: longitude}} = geometry;
-       this.setState({destination:{latitude, longitude, text: data.structured_formatting.main_text}});
-
+        const {location: {lat: latitude, lng: longitude}} = geometry;
+        this.setState({destination: {latitude, longitude, text: data.structured_formatting.main_text}});
+        const {region, destination} = this.state;
+        this.getCoordinates(region, destination).then(routeCoordinates => this.setState({directions:routeCoordinates }) )
     };
 
+
+   getCoordinates = async (origin, destination) => {
+       return await getRoute(origin, destination);
+
+   };
     render() {
-       const {region} = this.state;
+       const {region, destination, directions} = this.state;
 
     return (
       <View style={{flex: 1}}>
@@ -36,7 +44,23 @@ export default class Map extends Component {
           showsUserLocation={true}
           region={region}
           loadingEnabled={true}
-        />
+       >
+            {destination && directions &&
+           <Polyline
+		coordinates={directions}
+		strokeColor="#000" // fallback for when `strokeColors` is not supported by the map-provider
+		strokeColors={[
+			'#7F0000',
+			'#00000000', // no color, creates a "long" gradient between the previous and next coordinate
+			'#B24112',
+			'#E5845C',
+			'#238C23',
+			'#7F0000'
+		]}
+		strokeWidth={6}
+	/>}
+	<MapMarker coordinate={destination}/>
+        </MapView>
         <Search onLocationSelected = {this.handleLocationSelected}/>
 
       </View>
