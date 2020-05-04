@@ -67,8 +67,7 @@ async function getKey() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Content-Length': '<<calculated when request is sent>',
-        'Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNocmlzdGlhbmNhc0Bhb2wuY29tIiwiaWF0IjoxNTg3OTIzNzkyfQ.3sgDUmqM4yT66kpSR9peOur5SZBHKgFd93sbAxUJ5ng'
+        'Content-Length': '<<calculated when request is sent>'
       },
       body: JSON.stringify({
         source: {
