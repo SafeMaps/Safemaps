@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {AsyncStorage} from 'react-native';
+
 const BASE_URL = 'http://localhost:3000';
 
 async function createUser(credentials) {
@@ -54,6 +55,43 @@ async function getKey() {
   } catch (error) {
     console.log('There was an error getting they stored key ${error}');
   }
-};
-export {createUser, signIn, saveKey, getKey};
+}
+ async function getRoute(source, destination) {
+    const des_lat = destination.latitude.toString();
+    const des_lng = destination.longitude.toString();
+    const source_lat = source.latitude.toString();
+    const source_lng = source.longitude.toString();
+
+   try {
+    let response = await fetch('http://localhost:3000/routes', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': '<<calculated when request is sent>'
+      },
+      body: JSON.stringify({
+        source: {
+          latitude: source_lat,
+          longitude: source_lng
+        },
+        destination: {
+          latitude: des_lat,
+          longitude: des_lng
+        }
+      }),
+    });
+    if (response.status === 403) {
+      return false;
+    }
+    let json = await response.json();
+    const {routeCoordinates} = json;
+     return routeCoordinates
+
+  } catch (error) {
+    console.log('Error getting route: ${error}' + error.message);
+  }
+
+}
+
+export {createUser, signIn, saveKey, getKey, getRoute};
 
